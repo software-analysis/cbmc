@@ -811,7 +811,7 @@ int goto_instrument_parse_optionst::doit()
     error() << "Out of memory" << eom;
     return 11;
   }
-}
+} // NOLINT(readability/fn_size)
 
 /*******************************************************************\
 
@@ -1597,7 +1597,7 @@ void goto_instrument_parse_optionst::help()
     " --check-invariant function   instruments invariant checking function\n"
     " --remove-pointers            converts pointer arithmetic to base+offset expressions\n" // NOLINT(*)
     " --undefined-function-is-assume-false\n"
-    "                              convert each call to an undefined function to assume(false)\n"
+    "                              convert each call to an undefined function to assume(false)\n" // NOLINT(*)
     "\n"
     "Loop transformations:\n"
     " --k-induction <k>            check loops with k-induction\n"

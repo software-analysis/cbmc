@@ -263,7 +263,7 @@ std::string &post_process_fitness_source(std::string &result,
   implement_program_individual_deserialise(result, danger);
   const namespacet ns(st);
   std::stringstream ss;
-  dump_c(gf, true, ns, ss);
+  dump_c(gf, true, false, ns, ss);
   add_first_prog_offset(result, num_ce_vars);
   add_assume_implementation(result);
   add_danger_execute(result, num_vars, num_consts, max_prog_size, exec);

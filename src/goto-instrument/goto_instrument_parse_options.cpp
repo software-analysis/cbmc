@@ -649,7 +649,8 @@ int goto_instrument_parse_optionst::doit()
     if(cmdline.isset("dump-c") || cmdline.isset("dump-cpp"))
     {
       const bool is_cpp=cmdline.isset("dump-cpp");
-      const bool h=cmdline.isset("use-system-headers");
+      const bool headers=cmdline.isset("use-system-headers");
+      const bool harness=cmdline.isset("harness");
       namespacet ns(symbol_table);
 
       // restore RETURN instructions in case remove_returns had been
@@ -668,10 +669,20 @@ int goto_instrument_parse_optionst::doit()
           error() << "failed to write to `" << cmdline.args[1] << "'";
           return 10;
         }
-        (is_cpp ? dump_cpp : dump_c)(goto_functions, h, ns, out);
+        (is_cpp ? dump_cpp : dump_c)(
+          goto_functions,
+          headers,
+          harness,
+          ns,
+          out);
       }
       else
-        (is_cpp ? dump_cpp : dump_c)(goto_functions, h, ns, std::cout);
+        (is_cpp ? dump_cpp : dump_c)(
+          goto_functions,
+          headers,
+          harness,
+          ns,
+          std::cout);
 
       return 0;
     }
@@ -1640,6 +1651,7 @@ void goto_instrument_parse_optionst::help()
     "\n"
     "Other options:\n"
     " --use-system-headers         with --dump-c/--dump-cpp: generate C source with includes\n" // NOLINT(*)
+    " --harness                    with --dump-c/--dump-cpp: include input generator in output\n" // NOLINT(*)
     " --version                    show version and exit\n"
     " --xml-ui                     use XML-formatted output\n"
     " --json-ui                    use JSON-formatted output\n"

@@ -101,7 +101,7 @@ void add_main_body(std::string &result, const jsa_symex_learnt &lcfg)
   entry_only.function_map[entry_id].copy_from(it->second);
   const namespacet ns(lcfg.get_symbol_table());
   std::ostringstream oss;
-  dump_c(entry_only, false, ns, oss);
+  dump_c(entry_only, false, false, ns, oss);
   const std::string main_body(oss.str());
   result+=
     main_body.substr(

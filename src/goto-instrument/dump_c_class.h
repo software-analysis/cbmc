@@ -22,12 +22,14 @@ public:
   dump_ct(
     const goto_functionst &_goto_functions,
     const bool use_system_headers,
+    const bool include_harness,
     const namespacet &_ns,
     language_factoryt factory):
     goto_functions(_goto_functions),
     copied_symbol_table(_ns.get_symbol_table()),
     ns(copied_symbol_table),
-    language(factory())
+    language(factory()),
+    harness(include_harness)
   {
     if(use_system_headers)
       init_system_library_map();
@@ -45,6 +47,7 @@ protected:
   symbol_tablet copied_symbol_table;
   const namespacet ns;
   languaget *language;
+  const bool harness;
 
   typedef std::unordered_set<irep_idt, irep_id_hash> convertedt;
   convertedt converted_compound, converted_global, converted_enum;
@@ -133,6 +136,7 @@ protected:
     code_declt &decl,
     std::list<irep_idt> &local_static,
     std::list<irep_idt> &local_type_decls);
+  void cleanup_harness(code_blockt &b);
 };
 
 #endif // CPROVER_GOTO_INSTRUMENT_DUMP_C_CLASS_H

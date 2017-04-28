@@ -148,6 +148,7 @@ extern char *yyansi_ctext;
 %token TOK_GCC_BUILTIN_TYPES_COMPATIBLE_P "__builtin_types_compatible_p"
 %token TOK_OFFSETOF    "__offsetof"
 %token TOK_ALIGNOF     "__alignof__"
+%token TOK_CONVERTVECTOR "__builtin_convertvector"
 %token TOK_MSC_TRY     "__try"
 %token TOK_MSC_FINALLY "__finally"
 %token TOK_MSC_EXCEPT  "__except"
@@ -646,6 +647,11 @@ unary_expression:
           $$=$1;
           stack($$).id(ID_alignof);
           stack($$).add(ID_type_arg).swap(stack($3));
+        }
+        | TOK_CONVERTVECTOR '(' unary_expression ',' type_name ')'
+        {
+          // TODO: cast each vector element of $3 to $5
+          $$=$3;
         }
         ;
 

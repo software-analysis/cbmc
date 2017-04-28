@@ -686,6 +686,17 @@ void ansi_c_scanner_init()
                     return make_identifier();
                 }
 
+"__builtin_convertvector" {
+                  if(PARSER.mode==configt::ansi_ct::flavourt::APPLE)
+                  {
+                    loc();
+                    return TOK_CONVERTVECTOR;
+                  }
+                  else
+                    return make_identifier();
+                }
+
+
 %{
 /* C++ Keywords and Operators */
 %}
